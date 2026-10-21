@@ -1,0 +1,61 @@
+{
+  "description": "agent 工具调用评估集。每个用例：question 提问；expect_tools 期望调用的工具（空数组表示不应调用任何工具）；expect_keywords 最终回答中应出现的关键词（命中率 >= 50% 视为内容合格）。新增回归用例时直接往 cases 里加对象即可。",
+  "cases": [
+    {
+      "id": "time-basic",
+      "question": "现在几点了？",
+      "expect_tools": ["get_current_time"],
+      "expect_keywords": [],
+      "note": "基础时间查询"
+    },
+    {
+      "id": "calc-basic",
+      "question": "帮我算一下 (3+5)*2**10 等于多少",
+      "expect_tools": ["calculator"],
+      "expect_keywords": ["8192"],
+      "note": "计算器，答案确定可关键词校验"
+    },
+    {
+      "id": "read-file",
+      "question": "读一下 README.md 文件的第一行是什么",
+      "expect_tools": ["read_file"],
+      "expect_keywords": ["agent"],
+      "note": "文件读取，README 首行是 # agent"
+    },
+    {
+      "id": "rag-add-tool",
+      "question": "怎么给这个 agent 添加自己的新工具？",
+      "expect_tools": ["search_knowledge_base"],
+      "expect_keywords": ["beta_tool"],
+      "note": "RAG 检索，答案应来自使用手册并含 @beta_tool"
+    },
+    {
+      "id": "rag-list-docs",
+      "question": "知识库里都有哪些文档？",
+      "expect_tools": ["list_documents"],
+      "expect_keywords": ["使用手册"],
+      "note": "文档清单查询"
+    },
+    {
+      "id": "multi-tool",
+      "question": "现在几点了？顺便帮我算一下 6*7",
+      "expect_tools": ["get_current_time", "calculator"],
+      "expect_keywords": ["42"],
+      "note": "单轮多工具调用"
+    },
+    {
+      "id": "no-tool-chat",
+      "question": "你好，介绍一下你自己",
+      "expect_tools": [],
+      "expect_keywords": [],
+      "note": "纯对话，不应触发任何工具（防过度调用）"
+    },
+    {
+      "id": "rag-negative",
+      "question": "知识库里有关于 Docker 部署的文档吗？",
+      "expect_tools": ["search_knowledge_base"],
+      "expect_keywords": ["没有"],
+      "note": "否定检索：库中无此内容，应如实说没找到而非编造"
+    }
+  ]
+}
