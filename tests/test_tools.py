@@ -1,6 +1,6 @@
 """工具层测试：全部离线运行，不调用 API。"""
 
-from agent.tools import calculator, get_current_time, read_file
+from daybreak.tools import calculator, get_current_time, read_file
 
 
 class TestCalculator:

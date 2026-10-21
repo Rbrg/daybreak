@@ -1,4 +1,4 @@
-"""``python -m agent`` 入口。"""
+"""``python -m daybreak`` 入口。"""
 
 from .cli import main
 

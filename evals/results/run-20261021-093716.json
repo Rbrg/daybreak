@@ -1,0 +1,152 @@
+{
+  "model": "step-5-preview",
+  "timestamp": "20261021-093716",
+  "summary": {
+    "total": 8,
+    "tool_ok": 8,
+    "passed": 8
+  },
+  "results": [
+    {
+      "tool_ok": true,
+      "extra_tools": [],
+      "kw_rate": 1.0,
+      "passed": true,
+      "id": "time-basic",
+      "question": "现在几点了？",
+      "expect_tools": [
+        "get_current_time"
+      ],
+      "called_tools": [
+        "get_current_time"
+      ],
+      "answer": "现在是 **2026年10月21日 上午 9:36**（本地时间，UTC+8）。",
+      "error": null,
+      "elapsed_sec": 2.6
+    },
+    {
+      "tool_ok": true,
+      "extra_tools": [],
+      "kw_rate": 1.0,
+      "passed": true,
+      "id": "calc-basic",
+      "question": "帮我算一下 (3+5)*2**10 等于多少",
+      "expect_tools": [
+        "calculator"
+      ],
+      "called_tools": [
+        "calculator"
+      ],
+      "answer": "(3+5)*2**10 = **8192**",
+      "error": null,
+      "elapsed_sec": 2.2
+    },
+    {
+      "tool_ok": true,
+      "extra_tools": [],
+      "kw_rate": 1.0,
+      "passed": true,
+      "id": "read-file",
+      "question": "读一下 README.md 文件的第一行是什么",
+      "expect_tools": [
+        "read_file"
+      ],
+      "called_tools": [
+        "read_file"
+      ],
+      "answer": "README.md 的第一行是：\n\n```\n# daybreak\n```",
+      "error": null,
+      "elapsed_sec": 3.1
+    },
+    {
+      "tool_ok": true,
+      "extra_tools": [
+        "list_documents"
+      ],
+      "kw_rate": 1.0,
+      "passed": true,
+      "id": "rag-add-tool",
+      "question": "怎么给这个 agent 添加自己的新工具？",
+      "expect_tools": [
+        "search_knowledge_base"
+      ],
+      "called_tools": [
+        "search_knowledge_base",
+        "list_documents"
+      ],
+      "answer": "根据 `daybreak使用手册.md`，添加自己的工具只需三步，全部在 `daybreak/tools.py` 中完成：\n\n1. **写一个带类型注解和 docstring 的普通 Python 函数**\n2. **加上 `@beta_tool` 装饰器**\n3. **把函数名加进文件底部的 `BASE_TOOLS` 列表**（所有 Agent 都会获得它；若只给主 Agent 用，则加进 `TOOLS`）\n\n示例：\n\n```python\n@beta_tool\ndef get_weather(location: str) -> str:\n    \"\"\"查询某个城市的天气。\n\nArgs:\n        location: 城市名，例如 \"北京\"。\n    \"\"\"\n    return f\"{location}：晴，25℃\"\n```\n\n两个要点：\n\n- **docstring 的 Args 段必须写清楚**——工具的 JSON Schema 由函数签名和 docstring 自动生成，模型靠 Args 理解参数含义。\n- **函数内部自行 try/except 并返回错误字符串**——这样工具出错时模型能看到错误信息并换种方式回答，而不会让整个 REPL 崩溃。\n\n另外，如果新工具依赖了知识库文档的更新，记得用 `/reindex` 重建索引；用 `/tools` 可以验证新工具是否已生效。\n\n（来源：daybreak使用手册.md）",
+      "error": null,
+      "elapsed_sec": 7.3
+    },
+    {
+      "tool_ok": true,
+      "extra_tools": [],
+      "kw_rate": 1.0,
+      "passed": true,
+      "id": "rag-list-docs",
+      "question": "知识库里都有哪些文档？",
+      "expect_tools": [
+        "list_documents"
+      ],
+      "called_tools": [
+        "list_documents"
+      ],
+      "answer": "知识库目前收录了 2 个文档，共 8 个分块：\n\n1. **claude_api实践要点.md**（4 块）\n2. **daybreak使用手册.md**（4 块）\n\n需要我检索其中某个文档的具体内容吗？",
+      "error": null,
+      "elapsed_sec": 2.7
+    },
+    {
+      "tool_ok": true,
+      "extra_tools": [],
+      "kw_rate": 1.0,
+      "passed": true,
+      "id": "multi-tool",
+      "question": "现在几点了？顺便帮我算一下 6*7",
+      "expect_tools": [
+        "get_current_time",
+        "calculator"
+      ],
+      "called_tools": [
+        "get_current_time",
+        "calculator"
+      ],
+      "answer": "现在是 **2026-10-21 上午 9:37**（本地时间，UTC+8）。\n\n6 × 7 = **42**。",
+      "error": null,
+      "elapsed_sec": 3.1
+    },
+    {
+      "tool_ok": true,
+      "extra_tools": [],
+      "kw_rate": 1.0,
+      "passed": true,
+      "id": "no-tool-chat",
+      "question": "你好，介绍一下你自己",
+      "expect_tools": [],
+      "called_tools": [],
+      "answer": "你好！我是 **daybreak**，一个运行在命令行中的 AI 助手，当前使用的模型是 **step-5-preview**。\n\n我可以帮你做这些事情：\n\n- **查询信息**：获取当前时间、计算数学表达式\n- **处理文件**：读取工作区内的文本文件\n- **知识检索**：在本地文档知识库中查找项目文档、使用手册等资料\n- **任务分解**：把复杂的调研任务派给 researcher 子 Agent，把编码/技术分析任务派给 coder 子 Agent，然后综合结果给你\n\n有什么需要帮忙的，直接告诉我就行。",
+      "error": null,
+      "elapsed_sec": 5.3
+    },
+    {
+      "tool_ok": true,
+      "extra_tools": [
+        "list_documents"
+      ],
+      "kw_rate": 1.0,
+      "passed": true,
+      "id": "rag-negative",
+      "question": "知识库里有关于 Docker 部署的文档吗？",
+      "expect_tools": [
+        "search_knowledge_base"
+      ],
+      "called_tools": [
+        "search_knowledge_base",
+        "list_documents",
+        "search_knowledge_base"
+      ],
+      "answer": "知识库里**没有**关于 Docker 部署的文档。\n\n目前知识库中只有 2 个文档：\n\n- `claude_api实践要点.md`\n- `daybreak使用手册.md`\n\n用「Docker 部署」「部署 容器 docker」等关键词检索均无结果。如果你需要，我可以派 researcher 子 Agent 去调研 Docker 部署相关资料，或让 coder 帮你写一份部署方案。",
+      "error": null,
+      "elapsed_sec": 6.0
+    }
+  ]
+}

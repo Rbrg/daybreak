@@ -3,7 +3,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "cli-agent"
+name = "daybreak"
 version = "0.1.0"
 description = "基于 Claude API 的命令行 LLM Agent（手写 agentic loop / RAG / 多 Agent 编排）"
 readme = "README.md"
@@ -24,10 +24,10 @@ dependencies = [
 ]
 
 [project.scripts]
-cli-agent = "agent.cli:main"
+daybreak = "daybreak.cli:main"
 
 [tool.setuptools]
-packages = ["agent"]
+packages = ["daybreak"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

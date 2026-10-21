@@ -28,7 +28,7 @@ MAX_PAUSE_RESUMES = 5
 # 项目根目录（agent 包的上一级）下的 .env 文件
 _ENV_FILE = Path(__file__).resolve().parent.parent / ".env"
 
-SYSTEM_PROMPT = """你是一个运行在命令行中的 AI 助手，名叫 agent。
+SYSTEM_PROMPT = """你是一个运行在命令行中的 AI 助手，名叫 daybreak。
 
 你可以使用以下工具来帮助用户：
 - get_current_time：获取当前日期和时间

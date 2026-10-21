@@ -1,4 +1,4 @@
-# cli-agent
+# daybreak
 
 A command-line LLM agent built from scratch on the **Claude Messages API** —
 no LangChain, no agent frameworks. A single `anthropic` SDK dependency,
@@ -42,7 +42,7 @@ pip install anthropic jieba pypdf
 cp .env.example .env   # then edit .env
 
 # Run
-python -m agent
+python -m daybreak
 ```
 
 ### Configuration
@@ -62,7 +62,7 @@ python -m agent
 ## Architecture
 
 ```
-agent/
+daybreak/
 ├── core.py        # Agent class: hand-written agentic loop + streaming
 ├── cli.py         # REPL, stream rendering, error handling
 ├── tools.py       # @beta_tool tool definitions + registry
@@ -77,7 +77,7 @@ agent/
 ## Adding Your Own Tool
 
 Write a function with type annotations and a docstring, decorate it with
-`@beta_tool`, and register it in `BASE_TOOLS` in `agent/tools.py`:
+`@beta_tool`, and register it in `BASE_TOOLS` in `daybreak/tools.py`:
 
 ```python
 @beta_tool
@@ -107,8 +107,8 @@ python -m evals    # evaluation suite (needs API credentials)
 Docker:
 
 ```bash
-docker build -t cli-agent .
-docker run -it --env-file .env cli-agent
+docker build -t daybreak .
+docker run -it --env-file .env daybreak
 ```
 
 ## License

@@ -19,8 +19,8 @@
       "id": "read-file",
       "question": "读一下 README.md 文件的第一行是什么",
       "expect_tools": ["read_file"],
-      "expect_keywords": ["agent"],
-      "note": "文件读取，README 首行是 # agent"
+      "expect_keywords": ["daybreak"],
+      "note": "文件读取，README 首行是 # daybreak"
     },
     {
       "id": "rag-add-tool",

@@ -1,4 +1,4 @@
-# agent
+# daybreak
 
 [English](README_EN.md) | 中文
 
@@ -22,7 +22,7 @@ RAG 检索增强、多 Agent 编排、评估体系——不依赖 LangChain 等�
 - RAG 检索增强：`knowledge/` 目录放入 `.md`/`.txt`/`.pdf` 文档即可被检索
 - 评估体系：`python -m evals` 自动跑测试集，量化工具选择准确率
 - 工程化：45 个单元测试（pytest）、ruff  lint、GitHub Actions CI、Docker 镜像
-- 结构清晰，加新工具只需在 [agent/tools.py](agent/tools.py) 写一个函数
+- 结构清晰，加新工具只需在 [daybreak/tools.py](daybreak/tools.py) 写一个函数
 
 ## 环境要求
 
@@ -35,7 +35,7 @@ RAG 检索增强、多 Agent 编排、评估体系——不依赖 LangChain 等�
 # 1. 安装依赖
 pip install anthropic
 
-# 2.（可选）以可编辑模式安装本项目，之后可以直接用 cli-agent 命令启动
+# 2.（可选）以可编辑模式安装本项目，之后可以直接用 daybreak 命令启动
 pip install -e .
 ```
 
@@ -93,7 +93,7 @@ $env:ANTHROPIC_API_KEY = "sk-ant-..."
 
 ```powershell
 $env:AGENT_MODEL = "step-5-preview"
-python -m agent
+python -m daybreak
 ```
 
 已验证 `api.stepfun.com/step_plan` 网关支持本项目的全部用法：基础对话、
@@ -103,10 +103,10 @@ Tool Runner 工具调用、`output_config.effort` 参数。
 
 ```bash
 # 在项目根目录下
-python -m agent
+python -m daybreak
 
 # 或（如果执行过 pip install -e .）
-cli-agent
+daybreak
 ```
 
 启动后试试：
@@ -136,7 +136,7 @@ you> 读一下 README.md 的开头，总结这个项目
 
 ```text
 you> 怎么添加自己的新工具？
-agent> 添加工具只需要三步（来源：agent使用手册.md）：1. 写一个带类型注解和
+daybreak> 添加工具只需要三步（来源：agent使用手册.md）：1. 写一个带类型注解和
        Python 函数；2. 加 @beta_tool 装饰器；3. 注册进 TOOLS 列表……
 ```
 
@@ -144,7 +144,7 @@ agent> 添加工具只需要三步（来源：agent使用手册.md）：1. 写�
 
 **检索管线**：文档加载（pypdf 解析 PDF）→ 按段落分块（500 字上限、
 50 字重叠窗口，防止答案跨越块边界）→ jieba 中文分词 → BM25 排序取
-top-3。检索层（`agent/rag/index.py`）与上层解耦，以后可平滑替换为
+top-3。检索层（`daybreak/rag/index.py`）与上层解耦，以后可平滑替换为
 向量检索（embedding + 余弦相似度），工具层无需改动。
 
 ## 评估体系（Evals）
@@ -185,7 +185,7 @@ python -m evals --model step-5-preview   # 指定模型
 
 ```text
 you> 派 researcher 调研知识库里 RAG 管线怎么实现的
-agent> 💭 思考中: 用户要求派 researcher 子 agent 调研……
+daybreak> 💭 思考中: 用户要求派 researcher 子 agent 调研……
        🔧 调用工具: delegate_task (researcher)
        **结论：** 知识库的 RAG 管线是纯离线词法检索……
 ```
@@ -196,7 +196,7 @@ agent> 💭 思考中: 用户要求派 researcher 子 agent 调研……
   所以任务描述必须自包含）、持有基础工具集
 - **深度上限**：子 Agent 不再持有 `delegate_task`（`MAX_DELEGATE_DEPTH=1`），
   从机制上杜绝递归派生爆炸
-- 新增角色：在 [agent/subagents.py](agent/subagents.py) 的 `ROLE_PROMPTS`
+- 新增角色：在 [daybreak/subagents.py](daybreak/subagents.py) 的 `ROLE_PROMPTS`
   里加一段系统提示词即可
 
 ## 测试与 CI
@@ -218,18 +218,18 @@ ruff + pytest；评估套件因需要真实凭证，设为手动触发（workflo
 ## Docker
 
 ```bash
-docker build -t cli-agent .
-docker run -it --env-file .env cli-agent              # 交互式 REPL
-docker run --rm --env-file .env cli-agent python -m evals   # 容器内跑评估
+docker build -t daybreak .
+docker run -it --env-file .env daybreak              # 交互式 REPL
+docker run --rm --env-file .env daybreak python -m evals   # 容器内跑评估
 ```
 
 ## 项目结构
 
 ```
-agent/
-├── agent/
+daybreak/
+├── daybreak/
 │   ├── __init__.py
-│   ├── __main__.py    # python -m agent 入口
+│   ├── __main__.py    # python -m daybreak 入口
 │   ├── cli.py         # REPL 主循环、流式渲染、错误处理
 │   ├── core.py        # Agent 类：手写 agentic loop + 流式 + 历史管理
 │   ├── tools.py       # 工具定义（@beta_tool）与注册表
@@ -252,7 +252,7 @@ agent/
 
 ## 如何添加自己的工具
 
-打开 [agent/tools.py](agent/tools.py)，仿照现有工具写一个函数，加 `@beta_tool`
+打开 [daybreak/tools.py](daybreak/tools.py)，仿照现有工具写一个函数，加 `@beta_tool`
 装饰器，并把它加进文件底部的 `BASE_TOOLS` 列表（所有 Agent 都会获得它；
 若只给主 Agent 用，则加进 `TOOLS`）：
 

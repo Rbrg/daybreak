@@ -1,10 +1,10 @@
-# agent 使用手册
+# daybreak 使用手册
 
 ## 快速开始
 
 agent 是一个基于 Claude API 的命令行 LLM 智能体。启动前需要配置凭证：
 推荐把 `.env.example` 复制为 `.env` 并填入令牌，这样任何终端直接运行
-`python -m agent` 即可，无需每次设置环境变量。
+`python -m daybreak` 即可，无需每次设置环境变量。
 
 如果使用官方 Anthropic API，在 `.env` 中设置 `ANTHROPIC_API_KEY`；
 如果使用 StepFun 等 Anthropic 兼容网关，则设置 `ANTHROPIC_BASE_URL` 和
@@ -25,7 +25,7 @@ REPL 启动后可以使用以下斜杠命令：
 
 ## 如何添加自己的工具
 
-添加工具只需要三步，全部在 `agent/tools.py` 中完成：
+添加工具只需要三步，全部在 `daybreak/tools.py` 中完成：
 
 1. 写一个带类型注解和 docstring 的普通 Python 函数；
 2. 给它加上 `@beta_tool` 装饰器；

@@ -91,7 +91,7 @@ def _sanitize(text: str) -> str:
 def _print_banner(agent: Agent) -> None:
     tool_names = "、".join(t.name for t in TOOLS)
     print("=" * 56)
-    print("  agent —— 基于 Claude API 的命令行智能体")
+    print("  daybreak —— 基于 Claude API 的命令行智能体")
     print(f"  模型: {agent.model}    工具: {tool_names}")
     try:
         from .rag import get_knowledge_base
@@ -163,7 +163,7 @@ def main() -> None:
             continue
 
         printer = _StreamPrinter()
-        print("agent> ", end="", flush=True)
+        print("daybreak> ", end="", flush=True)
         try:
             reply = agent.chat(
                 user_input,

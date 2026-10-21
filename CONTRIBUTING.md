@@ -25,10 +25,10 @@ python -m evals
 
 ## 如何贡献
 
-- **加工具**：在 `agent/tools.py` 写一个 `@beta_tool` 函数，注册进 `BASE_TOOLS`
+- **加工具**：在 `daybreak/tools.py` 写一个 `@beta_tool` 函数，注册进 `BASE_TOOLS`
 - **加评估用例**：往 `evals/cases.json` 里加一个对象（问题 → 期望工具/关键词）
-- **加子 Agent 角色**：在 `agent/subagents.py` 的 `ROLE_PROMPTS` 里加一段系统提示词
-- **换检索实现**：`agent/rag/index.py` 是唯一需要改的文件（接口不变）
+- **加子 Agent 角色**：在 `daybreak/subagents.py` 的 `ROLE_PROMPTS` 里加一段系统提示词
+- **换检索实现**：`daybreak/rag/index.py` 是唯一需要改的文件（接口不变）
 
 ## Commit 规范
 

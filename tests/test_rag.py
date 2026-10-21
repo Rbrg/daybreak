@@ -1,8 +1,8 @@
 """RAG 子系统测试：分块、分词、BM25 检索、KnowledgeBase 管线。全部离线。"""
 
-from agent.rag import KnowledgeBase
-from agent.rag.chunker import chunk_documents, chunk_text
-from agent.rag.index import BM25Index, tokenize
+from daybreak.rag import KnowledgeBase
+from daybreak.rag.chunker import chunk_documents, chunk_text
+from daybreak.rag.index import BM25Index, tokenize
 
 
 class TestChunker:

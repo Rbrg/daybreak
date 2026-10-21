@@ -26,7 +26,7 @@ from pathlib import Path
 # 允许从任意目录以 `python -m evals` 方式启动
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from agent.core import Agent  # noqa: E402
+from daybreak.core import Agent  # noqa: E402
 
 KEYWORD_PASS_RATE = 0.5
 

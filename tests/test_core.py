@@ -1,8 +1,8 @@
 """Agent 核心与子 Agent 编排测试：不触发 API 调用（客户端懒加载）。"""
 
-from agent.core import MAX_DELEGATE_DEPTH, Agent
-from agent.subagents import ROLE_PROMPTS, spawn_subagent
-from agent.tools import BASE_TOOLS, TOOLS
+from daybreak.core import MAX_DELEGATE_DEPTH, Agent
+from daybreak.subagents import ROLE_PROMPTS, spawn_subagent
+from daybreak.tools import BASE_TOOLS, TOOLS
 
 
 class TestAgentConstruction:
